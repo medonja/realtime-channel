@@ -19,17 +19,17 @@ import com.goodow.realtime.json.JsonArray;
 import java.util.Comparator;
 import java.util.LinkedList;
 
-import name.fraser.neil.plaintext.diff_match_patch;
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
 
 public class JavaDiff implements Diff {
-  private final diff_match_patch dmp = new diff_match_patch();
+  private final DiffMatchPatch dmp = new DiffMatchPatch();
 
   @Override
   public void diff(String before, String after, ListTarget<String> target) {
-    LinkedList<diff_match_patch.Diff> diffs = dmp.diff_main(before, after);
-    dmp.diff_cleanupSemantic(diffs);
+    LinkedList<DiffMatchPatch.Diff> diffs = dmp.diffMain(before, after);
+    dmp.diffCleanupSemantic(diffs);
     int cursor = 0;
-    for (diff_match_patch.Diff diff : diffs) {
+    for (DiffMatchPatch.Diff diff : diffs) {
       String text = diff.text;
       int len = text.length();
       switch (diff.operation) {
